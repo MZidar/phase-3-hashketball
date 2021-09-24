@@ -126,4 +126,247 @@ def game_hash
   }
 end
 
-# Write code here
+require 'pry'
+
+def num_points_scored(name)
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if attribute == :players
+        i = 0
+        while i < 5
+          if name == data[i][:player_name]
+            return data[i][:points]
+          else
+            i += 1
+          end
+        end
+      end
+    end
+  end
+end
+
+def shoe_size(name)
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if attribute == :players
+        i = 0
+        while i < 5
+          if name == data[i][:player_name]
+            return data[i][:shoe]
+          else
+            i += 1
+          end
+        end
+      end
+    end
+  end
+end
+
+def team_colors(name)
+  game_hash.each do |where, team_hash|
+    if name == team_hash[:team_name]
+      return team_hash[:colors]
+    end
+  end
+end
+
+def team_names()
+  empty = []
+  game_hash.each do |where, team_hash|
+    empty << team_hash[:team_name]
+  end
+  empty
+end
+
+def player_numbers(name)
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if name == data
+        team_hash.each do |attribute, data|
+          if attribute == :players
+            i = 0
+            jersey = []
+            while i < 5
+             
+                jersey << data[i][:number]
+                i +=1
+              
+            end
+              return jersey
+          end
+        end
+      end
+    end
+  end
+end
+
+def player_stats(name)
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if attribute == :players
+        i = 0
+        while i < 5
+          if name == data[i][:player_name]
+            return data[i]
+          else
+            i += 1
+          end
+        end
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds_nets
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if attribute == :players
+        i = 0
+        size = 0
+        rebounds = 0
+        while i < 5
+          if data[i][:shoe] > size
+            size = data[i][:shoe]
+            rebounds = data[i][:rebounds]
+            i += 1
+          
+          else
+            i += 1
+          end
+          
+        end
+        return rebounds end
+    end
+  end
+end
+
+def big_shoe_rebounds_hornets
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if data == "Charlotte Hornets"
+        team_hash.each do |attribute, data|
+          if attribute == :players
+            i = 0
+            size = 0
+            rebounds = 0
+            while i < 5
+              if data[i][:shoe] > size
+                size = data[i][:shoe]
+                rebounds = data[i][:rebounds]
+                i += 1
+              else
+                i += 1
+              end
+              
+              end
+              return rebounds  end
+        end
+      end
+    
+    end
+  end
+end
+
+def big_shoe_rebounds
+  if big_shoe_rebounds_nets > big_shoe_rebounds_hornets
+    return big_shoe_rebounds_nets
+  else
+    return big_shoe_rebounds_hornets
+  end
+end
+
+
+def most_points_scored
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+    
+      if attribute == :players
+        i = 0
+        points = 0
+        name = ""
+        while i < 5
+          if data[i][:points] > points
+            points = data[i][:points]
+            name = data[i][:player_name]
+            i += 1
+          
+          
+          else
+            i += 1
+          end
+          binding.pry 
+        end
+        return name  end
+    end
+  end
+end
+
+def winning_team_a
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if data == "Brooklyn Nets"
+        team_hash.each do |attribute, data|
+          if attribute == :players
+            i = 0
+            points = 0
+            while i < 5
+              points += data[i][:points]
+              i += 1
+            end
+         return points end
+         end
+      end
+    end
+  end
+end
+
+def winning_team_b
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if data == "Charlotte Hornets"
+        team_hash.each do |attribute, data|
+          if attribute == :players
+            i = 0
+            points = 0
+            while i < 5
+              points += data[i][:points]
+              i += 1
+            end
+         return points end
+         end
+      end
+    end
+  end
+end
+
+def winning_team
+  if winning_team_a > winning_team_b
+    return "Nets"
+  else
+    return "Hornets"
+  end
+end
+
+
+def player_with_longest_name
+  game_hash.each do |where, team_hash|
+    team_hash.each do |attribute, data|
+      if attribute == :players
+        i = 0
+        name = ""
+        while i < 5
+          if data[i][:player_name].length > name.length
+            name = data[i][:rebounds]
+            i += 1
+          
+          
+          else
+            i += 1
+          end
+          
+        end
+        return name end
+    end
+  end
+end
+binding.pry
